@@ -1,0 +1,23 @@
+<div class="navbar bg-base-100 shadow-sm">
+  <div class="navbar-start">
+    <a class="btn btn-ghost text-xl">daisyUI</a>
+  </div>
+  <div class="navbar-end">
+    <div class="dropdown">
+      <div tabindex="0" role="button" class="btn btn-ghost lg:hidden">
+        <i class="bi bi-list"></i>
+      </div>
+      <ul
+        tabindex="0"
+        class="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-32 p-2 shadow"
+      >
+        <li><a>Home</a></li>
+      </ul>
+    </div>
+    <a class="btn btn-secondary lg:hidden">Login</a>
+    <ul class="menu menu-horizontal items-center px-1 hidden lg:flex">
+      <li><a>Home</a></li>
+      <li><a class="btn btn-secondary" [routerLink]="['./auth/login']">Login</a></li>
+    </ul>
+  </div>
+</div>
