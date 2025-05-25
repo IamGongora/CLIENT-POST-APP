@@ -1,6 +1,7 @@
 import { Component, inject } from '@angular/core';
-import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { AuthService } from '../../../auth/services/auth.service';
+import Swal from 'sweetalert2'; 
 
 @Component({
   selector: 'app-dashboard-layout',
@@ -10,4 +11,27 @@ import { AuthService } from '../../../auth/services/auth.service';
 })
 export class DashboardLayoutComponent {
 authService = inject(AuthService);
+router = inject(Router);
+logout (){
+  Swal.fire({
+  title: "Estas seguro?",
+  text: "La sesion finalizara de inmediato",
+  icon: "warning",
+  showCancelButton: true,
+  confirmButtonColor: "#3085d6",
+  cancelButtonColor: "#d33",
+  confirmButtonText: "Yes, logout"
+}).then((result) => {
+  if (result.isConfirmed) {
+    this.authService.logout();
+  this.router.navigateByUrl('/');
+    Swal.fire({
+      title: "Bye!",
+      text: "vuelve pronto",
+      icon: "info"
+    });
+  }
+});
+  
+}
 }

@@ -1,5 +1,6 @@
 import { Routes } from "@angular/router";
 import { DashboardLayoutComponent } from "./layout/dashboard-layout/dashboard-layout.component";
+import { UsersPageComponent } from "./pages/users-page/users-page.component";
 import { UserPageComponent } from "./pages/user-page/user-page.component";
 
 
@@ -9,7 +10,11 @@ const dashboardRoutes: Routes = [
         component: DashboardLayoutComponent,
         children:[
             {
-                path:'login',
+                path:'user',
+                component: UsersPageComponent,
+            },
+            {
+                path: 'users/:id',
                 component: UserPageComponent,
             },
             {

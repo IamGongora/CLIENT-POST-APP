@@ -2,6 +2,7 @@ import { Component, inject, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators} from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-login',
   imports: [ReactiveFormsModule],
@@ -38,8 +39,8 @@ loginForm = this.fb.group({
   password:['',[Validators.required,Validators.minLength(6)]],
   rememberMe: [false]
 });
-onSubmit(){
-
+ onSubmit(){
+let auth = false;
   if(this.loginForm.invalid){
       
     this.hasError.set(true);
@@ -54,17 +55,23 @@ onSubmit(){
     }else{
       localStorage.removeItem('rememberedEmail');
     }
-    this.authService.login(email!,password!).subscribe((isAuthenticated)=>{
+     this.authService.login(email!,password!).subscribe((isAuthenticated)=>{
       if (isAuthenticated){
-        alert('logueado')
-        this.router.navigateByUrl('/dashboard');
-        return
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: 'Bienvenido',
+          showConfirmButton: false,
+          timer: 1500,
+          });
+          this.router.navigateByUrl('//dashboard');
+          return;
+          }
+          this.hasError.set(true);
+          setTimeout(()=>{
+            this.hasError.set(false);
+          }, 2000);
+          return;
+          });
+        }
       }
-        this.hasError.set(true);
-        setTimeout(()=>{
-          this.hasError.set(false);
-        },2000);
-        return;
-    });
-  }
-}
