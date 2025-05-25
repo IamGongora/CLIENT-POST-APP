@@ -9,23 +9,44 @@
   >
 <label class="input validator">
  <i class="bi bi-envelope opacity-50"></i>
-  <input type="email" 
-  placeholder="mail@site.com" 
-  required formControlName="email=" />
+  <input 
+    type="email" 
+    placeholder="mail@site.com" 
+    required formControlName="email" />
 </label>
-<div class="validator-hint hidden">Enter valid email address</div>
+<div 
+  class="validator-hint hidden">
+    Enter valid email address</div>
 <div class="join">
   <div class="w-full">
     <label class="input validator join-item">
       <i class="bi bi-key opacity-50"></i>
-      <input [type]="type" 
-      placeholder="contraseña" 
-      required formControlName="password"/>
+      <input 
+        [type]="type" 
+        placeholder="contraseña" 
+        required formControlName="password"/>
     </label>
-    <div class="validator-hint hidden">Enter valid password</div>
+    <div class="validator-hint hidden">
+      Enter valid password</div>
   </div>
-  <a class="btn btn-neutral join-item"(click)="showPassword(type)"><i [class]="icon"></i></a>
+  <a class="btn btn-neutral join-item"
+  (click)="showPassword(type)">
+  <i 
+    [class]="icon"></i></a>
 </div>
+<fieldset 
+    class="fieldset bg-slate-100 border-base-300 rounded-box w-64 border p-4  ">
+  <label 
+    class="label">
+  <input 
+    type="checkbox" 
+    checked="checked" 
+    class="checkbox checkbox-secondary" 
+    formControlName="rememberMe"
+    />
+    Remember me
+  </label>
+</fieldset>
 <button type="submit" class="btn btn-secondary">Login</button>
 </form>
 

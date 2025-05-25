@@ -2,6 +2,7 @@ import { computed, Injectable, signal } from '@angular/core';
 import { BaseHttpService } from '../../shared/services/base-http.service';
 import { catchError, map, Observable, of } from 'rxjs';
 import { rxResource } from '@angular/core/rxjs-interop';
+import { HttpHeaders } from '@angular/common/http';
 
 
 type AuthStatus = 'cheking' | 'authenticated' | 'not-authenticated'
@@ -28,32 +29,49 @@ export class AuthService extends BaseHttpService {
   token = computed(()=>this._token());
   isAdmin = computed(()=>this._user()?.role?.name.includes('admin') ?? false);
 
- login(email: string, password: string): Observable<boolean> {
+login(email: string, password: string): Observable<boolean> {
+  const headers = new HttpHeaders({
+    'x-api-key': '71f3a2b2-643f-4b57-9c29-9019f8f69d6b', // reemplaza con tu clave real
+    'Content-Type': 'application/json'
+  });
+
   return this.http
-  .post<any>(`${this.apiUrl}/auth/login`, { email, password })
-  .pipe(
-    map((resp) => this.handlerAuthSuccess(resp)),
-    catchError((error:any)=> this.handlerAuthError(error))
+    .post<any>(`${this.apiUrl}/auth/login`, { email, password }, { headers })
+    .pipe(
+      map((resp) => this.handlerAuthSuccess(resp)),
+      catchError((error: any) => this.handlerAuthError(error))
+    );
+}
+
+  register (data:any):Observable<boolean>{
+    return this.http.post<any>(`${this.apiUrl}/auht/register`,data)
+    .pipe(
+      map((resp)=>this.handlerAuthSuccess(resp)),
+      catchError((error:any)=> this.handlerAuthError(error))
     );
   }
-    register (data:any):Observable<boolean>{
-      return this.http.post<any>(`${this.apiUrl}/auht/register`,data)
-      .pipe(
-        map((resp)=>this.handlerAuthSuccess(resp)),
-        catchError((error:any)=> this.handlerAuthError(error))
-      );
-    }
-    checkStatus ():Observable<boolean>{
-      const token = localStorage.getItem('token');
-      if(!token){
-        this.logout();
-        return of(false)
-      }
-      return this.http.get<any>(`${this.apiUrl}/auth/check-status`).pipe(
-        map((resp) => this.handlerAuthSuccess(resp)),
-        catchError((error:any)=> this.handlerAuthError(error))
-      );
-    }
+
+
+checkStatus(): Observable<boolean> {
+  const token = localStorage.getItem('token');
+
+  if (!token) {
+    this.logout();
+    return of(false);
+  }
+
+  const headers = new HttpHeaders({
+    'x-api-key': '71f3a2b2-643f-4b57-9c29-9019f8f69d6b',
+    'Authorization': `Bearer ${token}`,
+    'Content-Type': 'application/json'
+  });
+
+  return this.http.get<any>(`${this.apiUrl}/auth/check-status`, { headers }).pipe(
+    map((resp) => this.handlerAuthSuccess(resp)),
+    catchError((error: any) => this.handlerAuthError(error))
+  );
+}
+
 
     
 

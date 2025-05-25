@@ -2,4 +2,14 @@
 <h1 class="text-2x1 text-secondary"> Lista de Usuarios</h1>
 </div>
 <div class="divider divider-secondary"></div>
-<user-table [users]="userResource.value().data.users"></user-table>
+@if (userResource.isLoading()) {
+    <div class="flex justify-center items-center h-screen">
+        <span class="loading loading-spinner loading-lg"></span>
+    </div>
+}
+@if (userResource.hasValue()) {
+<user-table [users]="userResource.value().data.users"></user-table>}@else {
+<div class="flex justify-center items-center h-screen">
+        <h2 class="text-2xl"> Lista no tiene datos para mostrar </h2>
+    </div>
+}

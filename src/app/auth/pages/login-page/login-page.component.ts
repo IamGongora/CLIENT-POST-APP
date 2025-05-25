@@ -13,8 +13,17 @@ export class LoginPageComponent {
   router = inject(Router);
 fb = inject(FormBuilder);
 hasError = signal(false);
-type ='';
-icon ='';
+type ='password';
+icon ='bi bi-eye';
+  ngOnInit(){
+    const rememberedEmail = localStorage.getItem('rememberedEmail');
+    if (rememberedEmail) {
+      this.loginForm.patchValue({
+        email: rememberedEmail,
+        rememberMe: true,
+      });
+    }
+  }
   showPassword(type:string){
   if (type ==='password'){
     this.type='text';
@@ -26,17 +35,25 @@ icon ='';
 }
 loginForm = this.fb.group({
   email:['',[Validators.required,Validators.email]],
-  password:['',[Validators.required,Validators.minLength(6)]]
+  password:['',[Validators.required,Validators.minLength(6)]],
+  rememberMe: [false]
 });
 onSubmit(){
+
   if(this.loginForm.invalid){
+      
     this.hasError.set(true);
       setTimeout(()=>{
         this.hasError.set(false);
       },2000);
       return
     }
-    const {email ='', password=''} = this.loginForm.value;
+    const {email ='', password='', rememberMe} = this.loginForm.value;
+    if (rememberMe) {
+      localStorage.setItem('rememberedEmail', email!);
+    }else{
+      localStorage.removeItem('rememberedEmail');
+    }
     this.authService.login(email!,password!).subscribe((isAuthenticated)=>{
       if (isAuthenticated){
         alert('logueado')
