@@ -4,10 +4,11 @@ import { AuthService } from '../../../auth/services/auth.service';
 
 @Component({
   selector: 'header-front',
-  imports: [RouterLink],
+  imports: [ RouterLink],
   templateUrl: './header-front.component.html',
   styleUrl: './header-front.component.css'
 })
 export class HeaderFrontComponent {
-authService = inject(AuthService);
+  authService = inject(AuthService);
+
 }

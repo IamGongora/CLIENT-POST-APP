@@ -3,22 +3,22 @@ import { AuthLayoutComponent } from "./layout/auth-layout/auth-layout.component"
 import { LoginPageComponent } from "./pages/login-page/login-page.component";
 import { RegisterPageComponent } from "./pages/register-page/register-page.component";
 
-const authRoutes: Routes = [
+const authRoutes: Routes=[
     {
         path:'',
-        component: AuthLayoutComponent,
+        component:AuthLayoutComponent,
         children:[
             {
                 path:'login',
-                component: LoginPageComponent,
-            },
-             {
-                path:'register',
-                component: RegisterPageComponent,
+                component:LoginPageComponent,
             },
             {
-                path: '**',
-                redirectTo:'login',
+                path:'register',
+                component:RegisterPageComponent,
+            },
+            {
+                path:'**',
+                redirectTo: 'login',
             },
         ],
     },
@@ -27,4 +27,5 @@ const authRoutes: Routes = [
         redirectTo:'',
     },
 ];
+
 export default authRoutes;

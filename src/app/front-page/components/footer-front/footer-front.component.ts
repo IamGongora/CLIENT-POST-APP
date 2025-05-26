@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 
 @Component({
   selector: 'footer-front',
@@ -7,6 +7,5 @@ import { Component } from '@angular/core';
   styleUrl: './footer-front.component.css'
 })
 export class FooterFrontComponent {
-currentYear = new Date().getFullYear();
-
+  currentYear = signal(new Date().getFullYear());
 }

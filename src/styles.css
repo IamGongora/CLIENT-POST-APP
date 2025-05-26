@@ -1,9 +1,9 @@
-@import url('https://fonts.googleapis.com/css2?family=Rowdies:wght@300;400;700&display=swap');
-@import "tailwindcss";
-@plugin "daisyui" {
-   themes: forest --default, luxury --prefersdark;
- }
- @theme {
-  --font-Rowdies:"Rowdies", sans-serif;
+ @import url("https://fonts.googleapis.com/css2?family=Montserrat&family=Monserrat+Alternates&display=swap"); 
+ @import "tailwindcss";
+ @plugin "daisyui"{
+   themes: synthwave --default, night --prefersdark;
  }
 
+ @theme {
+  --font-montserrat:"Montserrat Alternates", sans-serif;
+ }

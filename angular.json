@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "CLIENT-POST-APP": {
+    "client-post-app": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -65,10 +65,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "CLIENT-POST-APP:build:production"
+              "buildTarget": "client-post-app:build:production"
             },
             "development": {
-              "buildTarget": "CLIENT-POST-APP:build:development"
+              "buildTarget": "client-post-app:build:development"
             }
           },
           "defaultConfiguration": "development"

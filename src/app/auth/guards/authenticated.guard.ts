@@ -3,13 +3,17 @@ import { CanMatchFn, Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { firstValueFrom } from 'rxjs';
 
-export const AuthenticatedGuard: CanMatchFn = async (route, segments) => {
+export const authenticatedGuard: CanMatchFn = async(route, segments) => {
   const authService = inject(AuthService);
   const router = inject(Router);
-  const isAuthenticated = await firstValueFrom (authService.checkStatus());
-  if (!isAuthenticated) {
-    router.navigateByUrl('/auth/login');
-    return false;
-  }
+
+  const isAuthenticated =  await firstValueFrom(authService.checkStatus());
+  
+    if(!isAuthenticated){
+      router.navigateByUrl('/auth/login');
+      return false;
+    }
+
+
   return true;
 };
